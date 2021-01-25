@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "519519892577",
+    "firebase_url": "https://lokovoznje-default-rtdb.firebaseio.com",
+    "project_id": "lokovoznje",
+    "storage_bucket": "lokovoznje.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519519892577:android:442852bb5861b2667ae620",
+        "android_client_info": {
+          "package_name": "com.example.lokovoznje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519519892577-n80snnunb10a595ucq96a6t2jdueda8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcuflRdHdZMaTU8ZTOjLbeQuv7UjkMGNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519519892577-n80snnunb10a595ucq96a6t2jdueda8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
