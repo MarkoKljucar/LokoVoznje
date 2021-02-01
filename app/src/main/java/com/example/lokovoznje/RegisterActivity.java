@@ -36,10 +36,14 @@ public class RegisterActivity extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.createText);
         fAuth = FirebaseAuth.getInstance();
 
+
+
+
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
+
 
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
     }
 }

@@ -13,30 +13,42 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/naziv_vozila"/>
+            android:text="@string/datum_voznje"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/naziv"/>
+            android:id="@+id/datumVoznje"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/registracija"/>
+            android:text="@string/relacija_voznje"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/registracija"/>
+            android:id="@+id/relacijaVoznje"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/razlog_voznje"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tip_motora"/>
+            android:id="@+id/razlogVoznje"
+            android:layout_marginBottom="10px"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tip"
+            android:text="@string/udaljenost_voznje"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/udaljenostVoznje"
             android:layout_marginBottom="10px"/>
 
     </LinearLayout>

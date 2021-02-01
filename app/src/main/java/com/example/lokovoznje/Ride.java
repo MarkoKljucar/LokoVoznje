@@ -6,6 +6,11 @@ public class Ride {
     private String Date;
     private int EndMilage;
     private String Relation;
+    private String Cause;
+
+    public String getCause() { return Cause; }
+
+    public void setCause(String cause) { Cause = cause; }
 
     public int getStartMilage() {
         return StartMilage;
@@ -19,9 +24,7 @@ public class Ride {
         return VehicleId;
     }
 
-    public void setVehicleId(String vehicleId) {
-        VehicleId = vehicleId;
-    }
+    public void setVehicleId(String vehicleId) { VehicleId = vehicleId; }
 
     public String getDate() {
         return Date;
@@ -46,4 +49,6 @@ public class Ride {
     public void setRelation(String relation) {
         Relation = relation;
     }
+
+
 }

@@ -9,44 +9,73 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
 
-    Context context;
-    ArrayList<Vehicle> vozila;
 
-    public VehicleAdapter(Context c, ArrayList<Vehicle> v)
+    Context context;
+    private List<Vehicle> vozilaData;
+    private VehicleClickListener listener;
+
+    public VehicleAdapter(List<Vehicle> vozilaData, VehicleClickListener vehiclelistener)
     {
-        context = c;
-        vozila = v;
+        this.listener = vehiclelistener;
+        this.vozilaData = vozilaData;
     }
     @NonNull
     @Override
     public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VehicleViewHolder(LayoutInflater.from(context).inflate(R.layout.vehiclecard,parent, false));
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.vehiclecard,parent,false);
+        return new VehicleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
-        holder.registracija.setText(vozila.get(position).getRegistration());
-        holder.vrstaVozila.setText(vozila.get(position).getCarName());
-        holder.tip.setText(vozila.get(position).getEngineType());
+        Vehicle voz = vozilaData.get(position);
+        String owner = voz.getOwnerId();
+        holder.registracija.setText(voz.getRegistration());
+        holder.vrstaVozila.setText(voz.getCarName());
+        holder.tip.setText(voz.getEngineType());
+
     }
 
     @Override
     public int getItemCount() {
-        return vozila.size();
+
+        return vozilaData.size();
     }
 
-    class VehicleViewHolder extends RecyclerView.ViewHolder
+
+    public class VehicleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         TextView registracija, vrstaVozila, tip;
+        Vehicle vehicle;
+
         public VehicleViewHolder(@NonNull View itemView) {
             super(itemView);
             registracija = (TextView) itemView.findViewById(R.id.registracija);
-            vrstaVozila = (TextView) itemView.findViewById(R.id.vrsta);
+            vrstaVozila = (TextView) itemView.findViewById(R.id.naziv);
             tip = (TextView) itemView.findViewById(R.id.tip);
+            itemView.setOnClickListener(this);
+
+
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getAdapterPosition());
         }
     }
+    public interface VehicleClickListener{
+        void onClick(View v, int postion);
+    }
+
+
+
+
 }

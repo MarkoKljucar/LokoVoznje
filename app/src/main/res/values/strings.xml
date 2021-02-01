@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">LokoVoznje</string>
     <string name="registracija">Registracija: </string>
-    <string name="vrsta_vozila">Vrsta: </string>
+    <string name="naziv_vozila">Naziv vozila: </string>
     <string name="tip_motora">Tip motora: </string>
+    <string name="datum_voznje">Datum vožnje: </string>
+    <string name="relacija_voznje">Relacija voznje: </string>
+    <string name="udaljenost_voznje">Prijeđeno kilometara: </string>
+    <string name="razlog_voznje">Razlog vožnje: </string>
 </resources>
