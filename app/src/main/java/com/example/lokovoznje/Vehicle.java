@@ -1,7 +1,6 @@
 package com.example.lokovoznje;
 
 public class Vehicle {
-    public static String VEHICLE_ID="vehicle_id";
     private String Registration;
     private String OwnerId;
     private String EngineType;

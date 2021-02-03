@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity{
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
                         Vehicle l=npsnapshot.getValue(Vehicle.class);
                         String kljuc = npsnapshot.getKey();
+
                         vozilaData.add(l);
 
                     }
@@ -69,9 +70,11 @@ public class MainActivity extends AppCompatActivity{
             private void setOnClickListener() {
                 listener = new VehicleAdapter.VehicleClickListener() {
                     @Override
-                    public void onClick(View v, int postion) {
+                    public void onClick(View v, int position) {
                         Intent intent = new Intent(getApplicationContext(), RideListActivity.class);
-                        intent.putExtra("id", vozilaData.get(postion).getRegistration());
+                        intent.putExtra("id", vozilaData.get(position).getRegistration());
+                        intent.putExtra("pot", vozilaData.get(position).getAverageFuel());
+                        intent.putExtra("tip", vozilaData.get(position).getEngineType());
                         startActivity(intent);
                     }
                 };

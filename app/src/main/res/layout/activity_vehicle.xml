@@ -95,6 +95,7 @@
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="Unesi prosječnu potrošnju"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

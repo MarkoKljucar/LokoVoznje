@@ -34,6 +34,7 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
         holder.datum.setText(ride.getDate());
         holder.relacija.setText(ride.getRelation());
         holder.razlog.setText(ride.getRelation());
+        holder.udaljenost.setText(Integer.toString(ride.getDifference()));
 
     }
 
@@ -43,12 +44,13 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
     }
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
-        TextView datum, relacija, razlog;
+        TextView datum, relacija, razlog, udaljenost;
         public RideViewHolder(@NonNull View itemView) {
             super(itemView);
             datum = (TextView) itemView.findViewById(R.id.datumVoznje);
             relacija = (TextView) itemView.findViewById(R.id.relacijaVoznje);
             razlog = (TextView) itemView.findViewById(R.id.razlogVoznje);
+            udaljenost = (TextView) itemView.findViewById(R.id.udaljenostVoznje);
 
         }
 

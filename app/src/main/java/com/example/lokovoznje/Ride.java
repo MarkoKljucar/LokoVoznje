@@ -7,6 +7,11 @@ public class Ride {
     private int EndMilage;
     private String Relation;
     private String Cause;
+    private int Difference;
+
+    public int getDifference() { return Difference; }
+
+    public void setDifference(int difference) { Difference = difference; }
 
     public String getCause() { return Cause; }
 
