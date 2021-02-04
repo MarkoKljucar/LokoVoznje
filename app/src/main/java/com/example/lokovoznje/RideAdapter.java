@@ -33,7 +33,7 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
         Ride ride = rideData.get(position);
         holder.datum.setText(ride.getDate());
         holder.relacija.setText(ride.getRelation());
-        holder.razlog.setText(ride.getRelation());
+        holder.razlog.setText(ride.getCause());
         holder.udaljenost.setText(Integer.toString(ride.getDifference()));
 
     }

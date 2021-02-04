@@ -37,7 +37,6 @@ public class RideListActivity extends AppCompatActivity {
     float cijenaGoriva;
     float potrosnjaVozila1;
     List<Integer> ogrKilometri;
-    ArrayList<Integer> posaljiKil;
     Float potrosnja1 = 0F;
 
     @Override
@@ -50,8 +49,6 @@ public class RideListActivity extends AppCompatActivity {
         potrosnja = findViewById(R.id.realniTros);
         String rega = "Nepostojeca registracija";
         String tip = "Nepostojeci tip!";
-
-
         Bundle extras = getIntent().getExtras();
         
         if (extras != null) {
@@ -135,7 +132,16 @@ public class RideListActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), RideActivity.class);
         intent.putExtra("rega", registracija.getText());
         //intent.putIntegerArrayListExtra("kil", ogrKilometri);
-        intent.putIntegerArrayListExtra("kil", (ArrayList<Integer>) ogrKilometri );
+        if (ogrKilometri == null)
+        {
+            int a = 0;
+            ArrayList<Integer> lista1 = new ArrayList<Integer>();
+            lista1.add(a);
+            intent.putIntegerArrayListExtra("kil", lista1);
+        }
+        else{
+            intent.putIntegerArrayListExtra("kil", (ArrayList<Integer>) ogrKilometri );
+        }
         startActivity(intent);
 
     }

@@ -68,9 +68,10 @@ public class RideActivity extends AppCompatActivity{
                     txtPocetna.setError("Početna kilometraža ne može biti manja od prethodne početne kilometraže!");
                     return;
                 }
-                else if (zav > poc)
+                else if (zav < poc)
                 {
                     txtZavrsna.setError("Završna kilometraža ne može biti manja od početne kilometraže!");
+                    return;
                 }
                 else{
                     ride.setVehicleId(registracija);
@@ -81,8 +82,8 @@ public class RideActivity extends AppCompatActivity{
                     ride.setCause(txtRazlog.getText().toString().trim());
                     ride.setDifference(razlika);
                     reff.push().setValue(ride);
-                    Intent intent2 = new Intent(getApplicationContext(), RideListActivity.class);
-                    intent2.putExtra("id", registracija);
+                    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                    //intent2.putExtra("id", registracija);
                     startActivity(intent2);
 
                     finish();

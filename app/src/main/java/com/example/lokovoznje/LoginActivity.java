@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         logirajButton = findViewById(R.id.registerBtn);
         fAuth = FirebaseAuth.getInstance();
         mLoginButton = findViewById(R.id.logirajButton);
-
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
