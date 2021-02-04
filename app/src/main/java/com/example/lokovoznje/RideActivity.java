@@ -68,6 +68,10 @@ public class RideActivity extends AppCompatActivity{
                     txtPocetna.setError("Početna kilometraža ne može biti manja od prethodne početne kilometraže!");
                     return;
                 }
+                else if (zav > poc)
+                {
+                    txtZavrsna.setError("Završna kilometraža ne može biti manja od početne kilometraže!");
+                }
                 else{
                     ride.setVehicleId(registracija);
                     ride.setStartMilage(poc);
