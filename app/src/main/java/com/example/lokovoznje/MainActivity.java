@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity{
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                     appleSnapshot.getRef().removeValue();
+                                    finish();
+                                    startActivity(getIntent());
                                 }
                             }
 
@@ -96,21 +98,27 @@ public class MainActivity extends AppCompatActivity{
                         });
                         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
                         Query voznjeQuery = ref.child("Voznja").orderByChild("vehicleId").equalTo(vozilaData.get(position).getRegistration());
-                        voznjeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot voznjeSnapshot: dataSnapshot.getChildren()) {
-                                    voznjeSnapshot.getRef().removeValue();
-                                    finish();
-                                    startActivity(getIntent());
+                        if(voznjeQuery != null){
+                            voznjeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot voznjeSnapshot: dataSnapshot.getChildren()) {
+                                        voznjeSnapshot.getRef().removeValue();
+
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
+                                }
+                            });
+
+                        }
+                        else{
+                            finish();
+                            startActivity(getIntent());
+                        }
                     }
 
                 };
