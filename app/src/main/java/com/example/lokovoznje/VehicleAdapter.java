@@ -1,9 +1,11 @@
 package com.example.lokovoznje;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,24 +56,39 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     {
         TextView registracija, vrstaVozila, tip;
         Vehicle vehicle;
+        ImageView mDeleteImage;
 
         public VehicleViewHolder(@NonNull View itemView) {
             super(itemView);
             registracija = (TextView) itemView.findViewById(R.id.registracija);
             vrstaVozila = (TextView) itemView.findViewById(R.id.naziv);
             tip = (TextView) itemView.findViewById(R.id.tip);
+            mDeleteImage = (ImageView) itemView.findViewById(R.id.img_delete);
             itemView.setOnClickListener(this);
-
+            mDeleteImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null)
+                    {
+                        int postion = getAdapterPosition();
+                        if(postion!= RecyclerView.NO_POSITION){
+                            listener.onDeleteClick(postion);
+                        }
+                    }
+                }
+            });
 
         }
 
 
         @Override
         public void onClick(View v) {
+
             listener.onClick(v, getAdapterPosition());
         }
     }
     public interface VehicleClickListener{
+        void onDeleteClick(int position);
         void onClick(View v, int postion);
     }
 

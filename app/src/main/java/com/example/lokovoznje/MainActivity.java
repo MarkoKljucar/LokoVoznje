@@ -77,6 +77,26 @@ public class MainActivity extends AppCompatActivity{
                         intent.putExtra("tip", vozilaData.get(position).getEngineType());
                         startActivity(intent);
                     }
+
+                    @Override
+                    public void onDeleteClick(int position) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        Query applesQuery = ref.child("Vehicle").orderByChild("registration").equalTo(vozilaData.get(position).getRegistration());
+                        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                    appleSnapshot.getRef().removeValue();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
                 };
             }
 
@@ -86,7 +106,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-
 
     public void logout(View View){
 

@@ -74,6 +74,19 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/registracija"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_delete">
+
+            </ImageView>
+        </RelativeLayout>
 
     </LinearLayout>
 </RelativeLayout>
