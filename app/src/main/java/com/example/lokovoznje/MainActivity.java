@@ -1,10 +1,12 @@
 package com.example.lokovoznje;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Jeste li sigurni da želite obrisati vozilo?");
+        builder.setMessage("Vozilo može sadržavati vožnje.");
+
 
 
 
@@ -67,6 +74,7 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
 
+
             private void setOnClickListener() {
                 listener = new VehicleAdapter.VehicleClickListener() {
                     @Override
@@ -80,45 +88,66 @@ public class MainActivity extends AppCompatActivity{
 
                     @Override
                     public void onDeleteClick(int position) {
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                        Query applesQuery = ref.child("Vehicle").orderByChild("registration").equalTo(vozilaData.get(position).getRegistration());
-                        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                    appleSnapshot.getRef().removeValue();
+                        builder.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                Query applesQuery = ref.child("Vehicle").orderByChild("registration").equalTo(vozilaData.get(position).getRegistration());
+                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                            appleSnapshot.getRef().removeValue();
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
+                                Query voznjeQuery = ref.child("Voznja").orderByChild("vehicleId").equalTo(vozilaData.get(position).getRegistration());
+                                if(voznjeQuery != null){
+                                    voznjeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot voznjeSnapshot: dataSnapshot.getChildren()) {
+                                                voznjeSnapshot.getRef().removeValue();
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
+                                else{
                                     finish();
                                     startActivity(getIntent());
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                dialog.dismiss();
                             }
                         });
-                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
-                        Query voznjeQuery = ref.child("Voznja").orderByChild("vehicleId").equalTo(vozilaData.get(position).getRegistration());
-                        if(voznjeQuery != null){
-                            voznjeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot voznjeSnapshot: dataSnapshot.getChildren()) {
-                                        voznjeSnapshot.getRef().removeValue();
 
-                                    }
-                                }
+                        builder.setNegativeButton("NE", new DialogInterface.OnClickListener() {
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
+                                // Do nothing
+                                dialog.dismiss();
+                            }
+                        });
 
-                        }
-                        else{
-                            finish();
-                            startActivity(getIntent());
-                        }
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
                     }
 
                 };

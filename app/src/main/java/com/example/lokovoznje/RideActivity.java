@@ -84,7 +84,9 @@ public class RideActivity extends AppCompatActivity{
                     reff.push().setValue(ride);
                     Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
                     //intent2.putExtra("id", registracija);
+                    Toast.makeText(RideActivity.this, "Uspješno dodana vožnja za vozilo: " + registracija, Toast.LENGTH_SHORT).show();
                     startActivity(intent2);
+
 
                     finish();
                 }
