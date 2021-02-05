@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity{
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                     appleSnapshot.getRef().removeValue();
-                                    finish();
-                                    startActivity(getIntent());
                                 }
                             }
 
@@ -96,7 +94,25 @@ public class MainActivity extends AppCompatActivity{
                             public void onCancelled(DatabaseError databaseError) {
                             }
                         });
+                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
+                        Query voznjeQuery = ref.child("Voznja").orderByChild("vehicleId").equalTo(vozilaData.get(position).getRegistration());
+                        voznjeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot voznjeSnapshot: dataSnapshot.getChildren()) {
+                                    voznjeSnapshot.getRef().removeValue();
+                                    finish();
+                                    startActivity(getIntent());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
+
                 };
             }
 
