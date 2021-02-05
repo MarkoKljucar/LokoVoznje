@@ -50,14 +50,28 @@ public class RideListActivity extends AppCompatActivity {
         String rega = "Nepostojeca registracija";
         String tip = "Nepostojeci tip!";
         Bundle extras = getIntent().getExtras();
+        String benzin = "Benzin";
+        String dizel = "Dizel";
+        String struja = "Struja";
         
         if (extras != null) {
             rega = extras.getString("id");
             potrosnja1 = extras.getFloat("pot");
             tip = extras.getString("tip");
-
         }
-        cijenaGoriva = 9.1F;
+        if(tip.equals(benzin))
+        {
+            cijenaGoriva = 9.3F;
+        }
+        else if(tip.equals(dizel)){
+            cijenaGoriva = 9.1F;
+        }
+        else if(tip.equals(struja))
+        {
+            cijenaGoriva = 3F;
+        }
+        String test = Float.toString(cijenaGoriva);
+        Log.d("more", test);
         Log.d("pero", tip);
         registracija.setText(rega);
         recyclerRides = (RecyclerView) findViewById(R.id.rideRecycler);
