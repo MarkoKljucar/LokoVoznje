@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +30,7 @@ import java.util.List;
 public class VehicleActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    EditText txtRegistracija, txtTipMotora, txtPotrosnja, txtNazivVozila;
+    EditText txtRegistracija, txtPotrosnja, txtNazivVozila;
     Button btnDodaj;
     DatabaseReference reff;
     Vehicle vehicle;
@@ -38,6 +40,7 @@ public class VehicleActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
         txtRegistracija = (EditText)findViewById(R.id.inptRegistracija);
+        txtRegistracija.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         txtPotrosnja = (EditText)findViewById(R.id.inptProsjek);
         btnDodaj = (Button)findViewById(R.id.spremiVoziloButton);
         txtNazivVozila = (EditText) findViewById(R.id.inptNazivVozila);
@@ -69,12 +72,35 @@ public class VehicleActivity extends AppCompatActivity implements
         btnDodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float pot = Float.parseFloat(txtPotrosnja.getText().toString().trim());
-                vehicle.setAverageFuel(pot);
+                //float pot = Float.parseFloat(txtPotrosnja.getText().toString().trim());
                 String rega = txtRegistracija.getText().toString().trim();
+                String nazivVozila = txtNazivVozila.getText().toString().trim();
+                float pot = 0.0f;
+                if (txtPotrosnja.getText().toString().equals("") == false){
+                    pot = Float.parseFloat(txtPotrosnja.getText().toString());
+                }
+                if (txtPotrosnja.getText().toString().equals("")){
+                    txtPotrosnja.setError("Molimo unesite potrošnju vozila!");
+                    return;
+                }
+
                 if(registracije.contains(rega))
                 {
                     txtRegistracija.setError("Ta registracija postoji unesite neku drugu!");
+                    return;
+                }
+                else if (rega.isEmpty())
+                {
+                    txtRegistracija.setError("Molim unesite registraciju vozila!");
+                    return;
+                }
+                else if(nazivVozila.isEmpty())
+                {
+                    txtNazivVozila.setError("Molim unesite naziv vozila");
+                    return;
+                }
+                else if(pot == 0){
+                    txtPotrosnja.setError("Potrošnja ne može biti negativna vrijednost!");
                     return;
                 }
                 else{
@@ -82,6 +108,7 @@ public class VehicleActivity extends AppCompatActivity implements
                     vehicle.setEngineType(spinner.getSelectedItem().toString());
                     vehicle.setOwnerId(userId);
                     vehicle.setCarName(txtNazivVozila.getText().toString().trim());
+                    vehicle.setAverageFuel(pot);
 
                     reff.push().setValue(vehicle);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));

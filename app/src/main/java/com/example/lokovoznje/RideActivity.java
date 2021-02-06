@@ -59,10 +59,28 @@ public class RideActivity extends AppCompatActivity{
             public void onClick(View v) {
                 datum = picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear();
 
-                int poc = Integer.parseInt(txtPocetna.getText().toString().trim());
-                int zav = Integer.parseInt(txtZavrsna.getText().toString().trim());
-                razlika = zav - poc;
+                //int poc = Integer.parseInt(txtPocetna.getText().toString().trim());
+                //int zav = Integer.parseInt(txtZavrsna.getText().toString().trim());
                 int max = Collections.max(ogranicenjeKil);
+                String relacija = txtRelacija.getText().toString().trim();
+                String razlog = txtRazlog.getText().toString().trim();
+                int poc = 0;
+                int zav = 0;
+                if (txtPocetna.getText().toString().equals("") == false){
+                    poc = Integer.parseInt(txtPocetna.getText().toString());
+                }
+                if (txtPocetna.getText().toString().equals("")){
+                    txtPocetna.setError("Molimo unesite početnu kilometražu vožnje!");
+                    return;
+                }
+                if (txtZavrsna.getText().toString().equals("") == false){
+                    zav = Integer.parseInt(txtZavrsna.getText().toString());
+                }
+                if (txtZavrsna.getText().toString().equals("")){
+                    txtZavrsna.setError("Molimo unesite završnu kilometražu vožnje!");
+                    return;
+                }
+                razlika = zav-poc;
                 if (poc < max)
                 {
                     txtPocetna.setError("Početna kilometraža ne može biti manja od prethodne početne kilometraže!");
@@ -71,6 +89,22 @@ public class RideActivity extends AppCompatActivity{
                 else if (zav < poc)
                 {
                     txtZavrsna.setError("Završna kilometraža ne može biti manja od početne kilometraže!");
+                    return;
+                }
+                else if (relacija.isEmpty())
+                {
+                    txtRelacija.setError("Unesite relaciju vožnje!");
+                    return;
+                }
+                else if(razlog.isEmpty())
+                {
+                    txtRazlog.setError("Unesite razlog odlaska!");
+                    return;
+                }
+
+                else if(poc < 0)
+                {
+                    txtPocetna.setError("Početna kilometraža ne može imati vrijednost manju od nule!");
                     return;
                 }
                 else{
