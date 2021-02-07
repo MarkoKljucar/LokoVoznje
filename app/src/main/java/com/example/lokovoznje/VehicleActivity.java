@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class VehicleActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
@@ -35,6 +36,13 @@ public class VehicleActivity extends AppCompatActivity implements
     DatabaseReference reff;
     Vehicle vehicle;
     List<String> registracije;
+    public final Pattern REGISTRACIJA_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9]{2}" +
+                    "-" +
+                    "[a-zA-Z0-9]{3,4}" +
+                    "-" +
+                    "[a-zA-Z0-9]{1,2}"
+    );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +109,10 @@ public class VehicleActivity extends AppCompatActivity implements
                 }
                 else if(pot == 0){
                     txtPotrosnja.setError("Potrošnja ne može biti negativna vrijednost!");
+                    return;
+                }
+                else if (!REGISTRACIJA_PATTERN.matcher(rega).matches()){
+                    txtRegistracija.setError("Registracija nije u pravilnom obliku: npr. DA-321ABC-DA");
                     return;
                 }
                 else{

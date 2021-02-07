@@ -11,12 +11,15 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +28,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 public class RideActivity extends AppCompatActivity{
     EditText txtPocetna, txtZavrsna, txtRelacija, txtRazlog;
+    TextView txtTrenutni;
     Button btnDodaj;
     DatabaseReference reff;
     Ride ride;
@@ -35,6 +40,7 @@ public class RideActivity extends AppCompatActivity{
     String datum;
     private int razlika;
     private int max1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,8 +48,11 @@ public class RideActivity extends AppCompatActivity{
         setContentView(R.layout.activity_ride);
         txtPocetna = (EditText)findViewById(R.id.inptPocetna);
         picker = (DatePicker) findViewById(R.id.inptDatum);
+        picker.setMinDate(System.currentTimeMillis());
+        picker.setMaxDate(System.currentTimeMillis());
         txtZavrsna = (EditText)findViewById(R.id.inptZavrsnaKilometraza);
         txtRelacija = (EditText)findViewById(R.id.inptRelacija);
+        txtTrenutni = (TextView)findViewById(R.id.txtPrikazKm);
         btnDodaj = (Button)findViewById(R.id.btnDodajVoznju);
         txtRazlog = (EditText) findViewById(R.id.inptRazlog);
         Bundle extras = getIntent().getExtras();
@@ -52,6 +61,8 @@ public class RideActivity extends AppCompatActivity{
         Log.d("list", ogranicenjeKil.toString());
         ride = new Ride();
         reff = FirebaseDatabase.getInstance().getReference("Voznja");
+        int trenutni = Collections.max(ogranicenjeKil);
+        txtTrenutni.setText("Trenutno km:" + Integer.toString(trenutni));
 
 
         btnDodaj.setOnClickListener(new View.OnClickListener() {
