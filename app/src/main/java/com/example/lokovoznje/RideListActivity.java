@@ -35,7 +35,6 @@ public class RideListActivity extends AppCompatActivity {
     public int razlikavoznje;
     float potrosnjaVozila;
     float cijenaGoriva;
-    float potrosnjaVozila1;
     List<Integer> ogrKilometri;
     Float potrosnja1 = 0F;
 
@@ -71,8 +70,6 @@ public class RideListActivity extends AppCompatActivity {
             cijenaGoriva = 3F;
         }
         String test = Float.toString(cijenaGoriva);
-        Log.d("more", test);
-        Log.d("pero", tip);
         registracija.setText(rega);
         recyclerRides = (RecyclerView) findViewById(R.id.rideRecycler);
 
@@ -80,8 +77,6 @@ public class RideListActivity extends AppCompatActivity {
         recyclerRides.setLayoutManager(new LinearLayoutManager(this));
         String novaRega = (String) registracija.getText();
 
-        //String test = Float.toString(potrosnjaVozila1);
-        //potrosnja.setText(test + "kn");
         rideData=new ArrayList<>();
         final DatabaseReference mm;
         mm = FirebaseDatabase.getInstance().getReference("Voznja");
@@ -97,28 +92,19 @@ public class RideListActivity extends AppCompatActivity {
                         int broj = Integer.parseInt(kilometri);
                         Float statistika = ((potrosnjaVozila / 100) * razlikavoznje) * cijenaGoriva;
                         Float statistika2 = (potrosnja1 / 100);
-                        //Log.d("cyka1", potrosnja1.toString());
 
                         rideData.add(r);
                         razlikavoznje += broj;
                         Float statistika3 = statistika2 * razlikavoznje;
                         Float statisitka4 = statistika3 * cijenaGoriva;
                         potrosnjaVozila = statisitka4;
-                        Log.d("cyka", statisitka4.toString());
                         int sub = razlikavoznje * 2;
                         ogrKilometri = new ArrayList<Integer>() {{
                             add(r.getEndMilage());
                         } };
 
-
-                        //Integer kilometriRazlike = r.getDifference();
-                        //ogrKilometri.add(kilometriRazlike);
-                        //ogrKilometri.add(kilometriRazlike);
                         String sub1 = Integer.toString(sub);
                         String s = Integer.toString(razlikavoznje);
-
-                        //String rezultat = Float.toString(statistika);
-                        //potrosnja.setText(rezultat + "kn");
                         predenikil.setText(s + "km");
                         subvenciran.setText(sub1 + "kn");
                         float rounded = (float) Math.round(potrosnjaVozila * 100) / 100;
@@ -145,7 +131,6 @@ public class RideListActivity extends AppCompatActivity {
     public void dodaj(View view) {
         Intent intent = new Intent(getApplicationContext(), RideActivity.class);
         intent.putExtra("rega", registracija.getText());
-        //intent.putIntegerArrayListExtra("kil", ogrKilometri);
         if (ogrKilometri == null)
         {
             int a = 0;

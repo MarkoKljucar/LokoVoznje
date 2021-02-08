@@ -39,7 +39,6 @@ public class RideActivity extends AppCompatActivity{
     DatePicker picker;
     String datum;
     private int razlika;
-    private int max1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +61,13 @@ public class RideActivity extends AppCompatActivity{
         ride = new Ride();
         reff = FirebaseDatabase.getInstance().getReference("Voznja");
         int trenutni = Collections.max(ogranicenjeKil);
-        txtTrenutni.setText("Trenutno km:" + Integer.toString(trenutni));
+        txtTrenutni.setText("Trenutno km: " + Integer.toString(trenutni));
 
 
         btnDodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datum = picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear();
-
-                //int poc = Integer.parseInt(txtPocetna.getText().toString().trim());
-                //int zav = Integer.parseInt(txtZavrsna.getText().toString().trim());
                 int max = Collections.max(ogranicenjeKil);
                 String relacija = txtRelacija.getText().toString().trim();
                 String razlog = txtRazlog.getText().toString().trim();
@@ -128,7 +124,6 @@ public class RideActivity extends AppCompatActivity{
                     ride.setDifference(razlika);
                     reff.push().setValue(ride);
                     Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-                    //intent2.putExtra("id", registracija);
                     Toast.makeText(RideActivity.this, "Uspješno dodana vožnja za vozilo: " + registracija, Toast.LENGTH_SHORT).show();
                     startActivity(intent2);
 

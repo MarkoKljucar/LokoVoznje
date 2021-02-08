@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginButton;
     TextView logirajButton;
+    ProgressBar mProgressBar;
 
 
     @Override
@@ -35,11 +36,13 @@ public class LoginActivity extends AppCompatActivity {
         logirajButton = findViewById(R.id.registerBtn);
         fAuth = FirebaseAuth.getInstance();
         mLoginButton = findViewById(R.id.logirajButton);
+        mProgressBar = findViewById(R.id.progressBarLogin);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
+
 
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Unesite email!");
@@ -54,15 +57,18 @@ public class LoginActivity extends AppCompatActivity {
                     mPassword.setError("Lozinka mora biti duža od 6 znamenaka!");
                     return;
                 }
-
+                mProgressBar.setVisibility(View.VISIBLE);
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            mProgressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(LoginActivity.this, "Uspješno logiran korisnik!.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                         }
                         else{
+                            mProgressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(LoginActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }

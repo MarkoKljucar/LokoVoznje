@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
+    ProgressBar mProgressBarReg;
 
 
     @Override
@@ -35,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterBtn = findViewById(R.id.registrirajButton);
         mLoginBtn = findViewById(R.id.createText);
         fAuth = FirebaseAuth.getInstance();
+        mProgressBarReg = findViewById(R.id.progressBar);
 
 
 
@@ -65,15 +68,18 @@ public class RegisterActivity extends AppCompatActivity {
                     mPassword.setError("Lozinka mora biti duža od 6 znamenaka!");
                     return;
                 }
+                mProgressBarReg.setVisibility(View.VISIBLE);
 
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            mProgressBarReg.setVisibility(View.INVISIBLE);
                             Toast.makeText(RegisterActivity.this, "User created.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                         else{
+                            mProgressBarReg.setVisibility(View.INVISIBLE);
                             Toast.makeText(RegisterActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }

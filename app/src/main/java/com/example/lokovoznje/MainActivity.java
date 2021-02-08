@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
 
-    DatabaseReference reference;
+
     RecyclerView recyclerVehicles;
     List<Vehicle> vozilaData;
     private VehicleAdapter.VehicleClickListener listener;
@@ -44,14 +44,10 @@ public class MainActivity extends AppCompatActivity{
         builder.setTitle("Jeste li sigurni da želite obrisati vozilo?");
         builder.setMessage("Vozilo može sadržavati vožnje.");
 
-
-
-
         recyclerVehicles = (RecyclerView) findViewById(R.id.vehicleRecycler);
         recyclerVehicles.setHasFixedSize(true);
         recyclerVehicles.setLayoutManager(new LinearLayoutManager(this));
         vozilaData=new ArrayList<>();
-        List<String> lista;
 
         final DatabaseReference nm= FirebaseDatabase.getInstance().getReference("Vehicle");
         Query query = nm.orderByChild("ownerId").equalTo(userId);
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity{
                 if (dataSnapshot.exists()){
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
                         Vehicle l=npsnapshot.getValue(Vehicle.class);
-                        String kljuc = npsnapshot.getKey();
 
                         vozilaData.add(l);
 

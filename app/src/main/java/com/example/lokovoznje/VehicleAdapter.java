@@ -18,8 +18,6 @@ import java.util.List;
 
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
 
-
-    Context context;
     private List<Vehicle> vozilaData;
     private VehicleClickListener listener;
 
@@ -55,7 +53,6 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     public class VehicleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         TextView registracija, vrstaVozila, tip;
-        Vehicle vehicle;
         ImageView mDeleteImage;
 
         public VehicleViewHolder(@NonNull View itemView) {

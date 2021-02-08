@@ -80,7 +80,6 @@ public class VehicleActivity extends AppCompatActivity implements
         btnDodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //float pot = Float.parseFloat(txtPotrosnja.getText().toString().trim());
                 String rega = txtRegistracija.getText().toString().trim();
                 String nazivVozila = txtNazivVozila.getText().toString().trim();
                 float pot = 0.0f;
