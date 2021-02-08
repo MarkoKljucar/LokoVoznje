@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             mProgressBarReg.setVisibility(View.INVISIBLE);
-                            Toast.makeText(RegisterActivity.this, "User created.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Uspješno kreiran korisnik!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                         else{

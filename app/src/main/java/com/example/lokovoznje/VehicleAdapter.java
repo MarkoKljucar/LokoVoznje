@@ -36,7 +36,6 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     @Override
     public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
         Vehicle voz = vozilaData.get(position);
-        String owner = voz.getOwnerId();
         holder.registracija.setText(voz.getRegistration());
         holder.vrstaVozila.setText(voz.getCarName());
         holder.tip.setText(voz.getEngineType());
@@ -62,6 +61,7 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
             tip = (TextView) itemView.findViewById(R.id.tip);
             mDeleteImage = (ImageView) itemView.findViewById(R.id.img_delete);
             itemView.setOnClickListener(this);
+
             mDeleteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity{
                                     public void onCancelled(DatabaseError databaseError) {
                                     }
                                 });
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
                                 Query voznjeQuery = ref.child("Voznja").orderByChild("vehicleId").equalTo(vozilaData.get(position).getRegistration());
                                 if(voznjeQuery != null){
                                     voznjeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -135,7 +134,6 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                // Do nothing
                                 dialog.dismiss();
                             }
                         });

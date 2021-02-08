@@ -90,7 +90,7 @@ public class RideActivity extends AppCompatActivity{
                 razlika = zav-poc;
                 if (poc < max)
                 {
-                    txtPocetna.setError("Početna kilometraža ne može biti manja od prethodne početne kilometraže!");
+                    txtPocetna.setError("Početna kilometraža ne može biti manja od prethodne kilometraže unesene! Prethodna: " + Integer.toString(max));
                     return;
                 }
                 else if (zav < poc)
